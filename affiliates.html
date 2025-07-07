@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Larozy AI - Affiliate Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --purple-800: #5b21b6;
+            --purple-900: #4c1d95;
+            --pink-500: #ec4899;
+            --pink-600: #db2777;
+            --pink-700: #be185d;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, var(--gray-900), var(--purple-900), var(--gray-900));
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--purple-500), var(--pink-500));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .cta-button {
+            background: linear-gradient(to right, var(--purple-600), var(--pink-600));
+            color: white;
+            padding: 10px 24px;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--purple-500), var(--pink-500));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+         /* Features Section */
+        .features-section {
+            padding: 80px 0;
+            background: rgba(31, 41, 55, 0.3);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--purple-500), var(--pink-500));
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--purple-500);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--purple-500);
+            margin-right: 10px;
+            margin-top: 3px;
+            font-size: 0.8rem;
+        }
+        
+        /* Affiliate Tiers */
+        .tier-section {
+            padding: 80px 0;
+        }
+        
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .tier-card {
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .tier-card.popular {
+            border: 2px solid var(--pink-600);
+            box-shadow: 0 10px 30px rgba(219, 39, 119, 0.2);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, var(--pink-600), var(--purple-600));
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .tier-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--pink-500);
+        }
+        
+        .tier-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .tier-card .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--pink-400);
+        }
+        
+        .tier-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .tier-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .tier-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--purple-500);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        /* How It Works */
+        .steps-section {
+            padding: 80px 0;
+            background: rgba(31, 41, 55, 0.3);
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .step-card {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            color: var(--purple-500);
+            margin-bottom: 20px;
+        }
+        
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .cta-box {
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 12px;
+            padding: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+    .jvzoo-banner {
+        padding: 8px 0;
+    }
+    .jvzoo-banner img {
+        max-width: 140px !important;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="images/yebailogo.jpg" alt="Larozy AI Logo">
+                Larozy AI
+            </div>
+            
+        </div>
+    </header>
+
+  
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Earn With Larozy AI</h1>
+            <p>Promote the most advanced AI content creation suite and earn generous commissions</p>
+            <a href="#" class="cta-button" style="padding: 15px 30px; font-size: 1.1rem;">Get Your Affiliate Link Now</a>
+        </div>
+    </section>
+
+      <!-- JVZoo Trust Logo Banner - Compliant Version -->
+<div class="jvzoo-banner" style="background: #ffffff; padding: 12px 0; text-align: center; border-bottom: 1px solid #e5e7eb;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <a href="#" target="_blank" rel="noopener noreferrer" style="display: inline-block;">
+            <img src="images/yebailogo.jpg" 
+                 alt="Warriroplus Verified Vendor" 
+                 style="height: auto; max-width: 180px; width: 100%;">
+        </a>
+    </div>
+</div>
+
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Powerful AI Tools You'll Promote</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 50px; color: rgba(255,255,255,0.7);">
+                These cutting-edge features make Larozy AI an easy sell for affiliates
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <h3>YouTube Analyzer</h3>
+                    <p>Boost viewer engagement and grow your YouTube channel faster with comprehensive analytics.</p>
+                    <ul class="feature-list">
+                        <li>Channel performance dashboard</li>
+                        <li>Thumbnail & title optimization</li>
+                        <li>Daily growth challenges</li>
+                        <li>Multi-channel management</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Text to Image</h3>
+                    <p>Transform your ideas into stunning visuals with our advanced AI image generation.</p>
+                    <ul class="feature-list">
+                        <li>Multiple art styles</li>
+                        <li>High-resolution outputs</li>
+                        <li>Customizable parameters</li>
+                        <li>Batch generation</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Text to Speech</h3>
+                    <p>Convert any text into natural-sounding speech with diverse voice options.</p>
+                    <ul class="feature-list">
+                        <li>Multiple languages & accents</li>
+                        <li>Emotion-infused voices</li>
+                        <li>Commercial usage rights</li>
+                        <li>Audio format options</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Motivational Video Generator</h3>
+                    <p>Create inspiring short videos automatically from your scripts with music and titles.</p>
+                    <ul class="feature-list">
+                        <li>Auto background music</li>
+                        <li>Dynamic text animations</li>
+                        <li>Stock footage integration</li>
+                        <li>One-click rendering</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Website to Video</h3>
+                    <p>Convert any website into an engaging short video presentation automatically.</p>
+                    <ul class="feature-list">
+                        <li>URL-based conversion</li>
+                        <li>Auto content extraction</li>
+                        <li>Visual theme matching</li>
+                        <li>Responsive video output</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard"></i>
+                    </div>
+                    <h3>Whiteboard Animation</h3>
+                    <p>Professional whiteboard animations generated from your scripts automatically.</p>
+                    <ul class="feature-list">
+                        <li>Hand-drawn style</li>
+                        <li>Custom characters</li>
+                        <li>Auto-sync narration</li>
+                        <li>Export in multiple formats</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Affiliate Tiers -->
+    <section class="tier-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">Affiliate Earnings</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 50px; color: rgba(255,255,255,0.7);">
+                Our high-converting funnel offers multiple ways to earn
+            </p>
+            
+            <div class="tier-grid">
+                <div class="tier-card">
+                    <div class="tier-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Starter Plan</h3>
+                    <div class="price">$5-$7</div>
+                    <ul class="tier-features">
+                        <li>Low competition</li>
+                        <li>High demand product</li>
+                        <li>Perfect for beginners</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-card popular">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="tier-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Pro Plan</h3>
+                    <div class="price">$24.5 - $34.3</div>
+                    <ul class="tier-features">
+                        <li>Higher ticket value</li>
+                        <li>Better conversions</li>
+                        <li>Premium audience targeting</li>
+                    </ul>
+                </div>
+                
+                <div class="tier-card">
+                    <div class="tier-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Custom Deals</h3>
+                    <div class="price">$270 - $450+</div>
+                    <ul class="tier-features">
+                        <li>Enterprise clients</li>
+                        <li>Agency deals</li>
+                        <li>Custom arrangements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="steps-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">How It Works</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 50px; color: rgba(255,255,255,0.7);">
+                Start earning in just 3 simple steps
+            </p>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>Sign Up</h3>
+                    <p>Join our affiliate network (takes 2 minutes)</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3>Promote</h3>
+                    <p>Share your unique link via social media, email, or ads</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Earn</h3>
+                    <p>Get paid for every sale you refer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2 style="font-size: 2.2rem; margin-bottom: 20px;">Ready to Start Earning?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Join our affiliate program today and get access to all the tools you need to succeed.
+                </p>
+                <a href="#" class="cta-button" style="padding: 15px 40px; font-size: 1.2rem;">Get Your Affiliate Link Now</a>
+                
+                <div style="margin-top: 40px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; text-align: center; font-size: 15px; line-height: 1.6;">
+                    <p><strong>Note:</strong> All commissions are paid through Warriorplus's affiliate system. You'll need a Warriorplus account to participate in the affiliate program.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer style="background: rgba(0,0,0,0.3); color: white; padding: 30px 20px; text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 14px; opacity: 0.8; margin-bottom: 20px;">
+                © <script>document.write(new Date().getFullYear())</script> Larozy AI. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

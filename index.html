@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Larozy AI - AI-Powered Content Creation (Starter Plan)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+            --purple-800: #5b21b6;
+            --purple-900: #4c1d95;
+            --pink-500: #ec4899;
+            --pink-600: #db2777;
+            --pink-700: #be185d;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, var(--gray-900), var(--purple-900), var(--gray-900));
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--purple-500), var(--pink-500));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .cta-button {
+            background: linear-gradient(to right, var(--purple-600), var(--pink-600));
+            color: white;
+            padding: 10px 24px;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--purple-500), var(--pink-500), var(--purple-500));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: gradient 3s linear infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        /* Demo Section */
+        .demo-section {
+            padding: 100px 0;
+            background: rgba(31, 41, 55, 0.5);
+            position: relative;
+        }
+        
+        .demo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(139, 92, 246, 0.1), transparent);
+            pointer-events: none;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--purple-500), var(--pink-500));
+            border-radius: 2px;
+        }
+        
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .demo-input, .demo-output {
+            background: rgba(31, 41, 55, 0.7);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .demo-input {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .window-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .window-control.red { background: #ff5f56; }
+        .window-control.yellow { background: #ffbd2e; }
+        .window-control.green { background: #27c93f; }
+        
+        .demo-textarea {
+            width: 100%;
+            background: var(--gray-900);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 150px;
+            resize: none;
+            margin-bottom: 20px;
+            font-family: inherit;
+        }
+        
+        .demo-button {
+            background: linear-gradient(to right, var(--purple-600), var(--pink-600));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+        
+        .demo-button i {
+            margin-right: 8px;
+        }
+        
+        .demo-output {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-output-placeholder {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .demo-output-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .demo-result {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .demo-timer {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .timer-badge {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+        
+        .timer-badge span {
+            color: var(--purple-500);
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
+            border-color: rgba(124, 58, 237, 0.5);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--purple-500);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--purple-500);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 100px 0;
+            background: rgba(31, 41, 55, 0.5);
+            position: relative;
+        }
+        
+        .pricing-card {
+            background: rgba(31, 41, 55, 0.7);
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, var(--purple-500), var(--pink-500));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .payment-type {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .pricing-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--purple-500);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(31, 41, 55, 0.7);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-top: 20px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+        
+        .guarantee-badge i {
+            color: var(--purple-500);
+            margin-right: 10px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Elements -->
+    <div class="floating-element purple-orb"></div>
+    <div class="floating-element pink-orb"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="images/yebailogo.jpg" alt="Larozy AI Logo">
+                Larozy AI
+            </div>
+           
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="slide-up">Create Stunning AI Content in Seconds</h1>
+            <p class="fade-in">Transform your ideas into visuals, videos, and voiceovers with cutting-edge AI technology.</p>
+            
+            <p style="margin-top: 15px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7);">
+            <i class="fas fa-bolt"></i> <strong>Launch Deal:</strong> Get 50% OFF today!
+            </p>
+            
+            <!-- JVZoo Button Container -->
+<div class="jvzoo-button-container" style="text-align: center; margin: 20px 0;">
+    <div style="display: inline-block; max-width: 100%;">
+        <a href="https://www.jvzoo.com/b/0/420591/3" style="display: block; transition: all 0.3s ease;">
+            <img src="https://i.jvzoo.com/0/420591/3" 
+                 alt="LarozyAi - Social Media Creative Beast" 
+                 style="max-width: 100%; height: auto; border: none; border-radius: 8px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);"
+                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 20px rgba(139, 92, 246, 0.4)'"
+                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(139, 92, 246, 0.3)'">
+        </a>
+    </div>
+</div>
+            
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2 class="section-title">See The Magic In Action</h2>
+            
+            <div class="demo-container">
+                <div class="demo-input">
+                    <div class="window-controls">
+                        <div class="window-control red"></div>
+                        <div class="window-control yellow"></div>
+                        <div class="window-control green"></div>
+                    </div>
+                    <textarea class="demo-textarea" id="demo-textarea" placeholder="Enter your prompt here..." readonly></textarea>
+                    <button class="demo-button" id="demo-button">
+                        <i class="fas fa-magic"></i> Generate AI Content
+                    </button>
+                </div>
+                
+                <div class="demo-output">
+                    <div class="demo-output-placeholder" id="demo-placeholder">
+                        <i class="fas fa-image"></i>
+                        <p>Your AI-generated content will appear here</p>
+                    </div>
+                    <img src="" alt="AI Generated Result" class="demo-result" id="demo-result">
+                    <div class="demo-timer" id="demo-timer">
+                        <div class="timer-badge">Generated in <span id="timer-value">0</span>s • <span>Demo Version</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Powerful AI Tools At Your Fingertips</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card slide-up" style="animation-delay: 0.1s;">
+                    <div class="feature-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <h3>YouTube Analyzer</h3>
+                    <p>Boost viewer engagement and grow your YouTube channel faster with comprehensive analytics.</p>
+                    <ul class="feature-list">
+                        <li>Channel performance dashboard</li>
+                        <li>Thumbnail & title optimization</li>
+                        <li>Daily growth challenges</li>
+                        <li>Multi-channel management</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.2s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Text to Image</h3>
+                    <p>Transform your ideas into stunning visuals with our advanced AI image generation.</p>
+                    <ul class="feature-list">
+                        <li>Multiple art styles</li>
+                        <li>High-resolution outputs</li>
+                        <li>Customizable parameters</li>
+                        <li>Batch generation</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.3s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Text to Speech</h3>
+                    <p>Convert any text into natural-sounding speech with diverse voice options.</p>
+                    <ul class="feature-list">
+                        <li>Multiple languages & accents</li>
+                        <li>Emotion-infused voices</li>
+                        <li>Commercial usage rights</li>
+                        <li>Audio format options</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.4s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Motivational Video Generator</h3>
+                    <p>Create inspiring short videos automatically from your scripts with music and titles.</p>
+                    <ul class="feature-list">
+                        <li>Auto background music</li>
+                        <li>Dynamic text animations</li>
+                        <li>Stock footage integration</li>
+                        <li>One-click rendering</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.5s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Website to Video</h3>
+                    <p>Convert any website into an engaging short video presentation automatically.</p>
+                    <ul class="feature-list">
+                        <li>URL-based conversion</li>
+                        <li>Auto content extraction</li>
+                        <li>Visual theme matching</li>
+                        <li>Responsive video output</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.6s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard"></i>
+                    </div>
+                    <h3>Whiteboard Animation</h3>
+                    <p>Professional whiteboard animations generated from your scripts automatically.</p>
+                    <ul class="feature-list">
+                        <li>Hand-drawn style</li>
+                        <li>Custom characters</li>
+                        <li>Auto-sync narration</li>
+                        <li>Export in multiple formats</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+<section id="pricing" class="pricing-section">
+    <div class="container">
+        <h2 class="section-title">Choose Your Plan</h2>
+        <p style="text-align: center; margin-bottom: 30px; color: var(--pink-400); font-weight: 600;">
+            ⚡ Launch Special: <strong>50% OFF</strong> (Limited Time)
+        </p>
+
+        <div class="pricing-card">
+            <h3>Starter Plan</h3>
+            <div class="price">
+                <span style="text-decoration: line-through; opacity: 0.7; font-size: 1.5rem;">$20</span> 
+                <span>$10</span>
+            </div>
+            <div class="payment-type">One-time payment | <strong>Launch Discount</strong></div>
+            
+            <ul class="pricing-features">
+                <li>Frontend Access</li>
+                <li>YouTube Analyzer</li>
+                <li>Text to Speech</li>
+                <li>Text to Image</li>
+                <li>Motivational Video Generator <em>(Requires credits)</em></li>
+                <li>Website to Video <em>(Requires credits)</em></li>
+                <li>Whiteboard Animation <em>(Requires credits)</em></li>
+                <li>Basic Support</li>
+            </ul>
+            
+            <!-- JVZoo Button Container -->
+<div class="jvzoo-button-container" style="text-align: center; margin: 20px 0;">
+    <div style="display: inline-block; max-width: 100%;">
+        <a href="https://www.jvzoo.com/b/0/420591/3" style="display: block; transition: all 0.3s ease;">
+            <img src="https://i.jvzoo.com/0/420591/3" 
+                 alt="LarozyAi - Social Media Creative Beast" 
+                 style="max-width: 100%; height: auto; border: none; border-radius: 8px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);"
+                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 20px rgba(139, 92, 246, 0.4)'"
+                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(139, 92, 246, 0.3)'">
+        </a>
+    </div>
+</div>
+            
+            <div class="guarantee-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>30-Day Money-Back Guarantee</span>
+            </div>
+        </div>
+    </div>
+</section>
+    
+    <!-- Final CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready To Transform Your Content Creation?</h2>
+            <p>Create more content in less time with Larozy AI's seamless automation.</p>
+            <!-- JVZoo Button Container -->
+<div class="jvzoo-button-container" style="text-align: center; margin: 20px 0;">
+    <div style="display: inline-block; max-width: 100%;">
+        <a href="https://www.jvzoo.com/b/0/420591/3" style="display: block; transition: all 0.3s ease;">
+            <img src="https://i.jvzoo.com/0/420591/3" 
+                 alt="LarozyAi - Social Media Creative Beast" 
+                 style="max-width: 100%; height: auto; border: none; border-radius: 8px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);"
+                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 20px rgba(139, 92, 246, 0.4)'"
+                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(139, 92, 246, 0.3)'">
+        </a>
+    </div>
+</div>
+        </div>
+    </section>
+
+    <!-- 👣 PROFESSIONAL FOOTER -->
+<footer style="background: linear-gradient(to right, var(--purple-900), var(--gray-900)); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; border-top: 1px solid rgba(124, 58, 237, 0.3);">
+  <div style="max-width: 800px; margin: 0 auto;">
+      <img src="images/moneyback.png" alt="Money Back Guarantee" style="max-width: 200px; margin-bottom: 25px; filter: drop-shadow(0 5px 15px rgba(139, 92, 246, 0.3));">
+      
+      <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap;">
+          <a href="https://docs.google.com/document/d/1AyhHRbKN48HgxU4q9kDizJXcXeU0CsqeEblrF7ar64s/edit?usp=sharing" 
+             style="color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 5px; transition: all 0.3s;"
+             onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-2px)'" 
+             onmouseout="this.style.background='transparent'; this.style.transform='translateY(0)'">
+             Terms and Conditions
+          </a> 
+          <span style="opacity: 0.5;">|</span>
+          <a href="https://docs.google.com/document/d/17eyY10wmZIUGjdw0Xlli-nkNXN_zCgg6_5_uW-2_D0k/edit?usp=sharing" 
+             style="color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 5px; transition: all 0.3s;"
+             onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-2px)'" 
+             onmouseout="this.style.background='transparent'; this.style.transform='translateY(0)'">
+             Privacy Policy
+          </a>
+          <span style="opacity: 0.5;">|</span>
+          <a href="https://docs.google.com/document/d/1IUzo6t1_wtP0Ux7wH5wWhjD_oJjySrlAuIpf6DrHO1w/edit?tab=t.0" 
+             style="color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 5px; transition: all 0.3s;"
+             onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-2px)'" 
+             onmouseout="this.style.background='transparent'; this.style.transform='translateY(0)'">
+             Contact Us
+          </a>
+      </div>
+
+      <p style="font-size: 14px; opacity: 0.8; margin-bottom: 30px;">
+          © <script>document.write(new Date().getFullYear())</script> Larozy AI. All Rights Reserved.
+      </p>
+
+      <div class="wplus_spdisclaimer" style="color: #fff; font-size: 14px; padding: 15px 0;"></div>
+
+      <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; text-align: center; font-size: 12px; line-height: 1.6; margin-top: 30px;">
+        <p style="font-size: 13px; margin-top: 20px;">
+          <strong>⚠️ IMPORTANT DISCLAIMER:</strong><br />
+          This product is not affiliated with or endorsed by Facebook, YouTube, Instagram, Google, or any other third-party platform. All trademarks and logos are property of their respective owners.
+          Results are not typical and require work. Your success depends on your efforts, following our training, and proper implementation.
+          This is not a "get rich quick" scheme. We cannot guarantee you will achieve any specific results.
+      </p>
+      </div>
+  </div>
+</footer>
+    
+    <script>
+        // Demo Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoButton = document.getElementById('demo-button');
+            const demoTextarea = document.getElementById('demo-textarea');
+            const demoPlaceholder = document.getElementById('demo-placeholder');
+            const demoResult = document.getElementById('demo-result');
+            const demoTimer = document.getElementById('demo-timer');
+            const timerValue = document.getElementById('timer-value');
+            
+            // Demo examples
+            const demoExamples = [
+                {
+                    prompt: "An African man in his Maize farm checking one of his maize plant",
+                    image: "images/timg1.jpg",
+                    time: 6
+                },
+                {
+                    prompt: "A mother carrying her female child and were both in an happy mode",
+                    image: "images/timg2.jpg",
+                    time: 7
+                },
+                {
+                    prompt: "Realistic Image of a Couple kissing at a date night, blur light behind them and glowing",
+                    image: "images/timg3.jpg",
+                    time: 5
+                }
+            ];
+            
+            demoButton.addEventListener('click', function() {
+                // Reset demo
+                demoTextarea.value = '';
+                demoPlaceholder.style.display = 'block';
+                demoResult.style.display = 'none';
+                demoResult.src = '';
+                demoTimer.style.display = 'none';
+                demoButton.disabled = true;
+                demoButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+                
+                // Randomly select a demo example
+                const randomExample = demoExamples[Math.floor(Math.random() * demoExamples.length)];
+                
+                // Simulate typing effect
+                let i = 0;
+                const typingInterval = setInterval(function() {
+                    demoTextarea.value = randomExample.prompt.substring(0, i);
+                    i++;
+                    
+                    if (i > randomExample.prompt.length) {
+                        clearInterval(typingInterval);
+                        
+                        // Start timer
+                        let seconds = 0;
+                        const timerInterval = setInterval(function() {
+                            seconds++;
+                            timerValue.textContent = seconds;
+                        }, 1000);
+                        
+                        // Show result after delay
+                        setTimeout(function() {
+                            clearInterval(timerInterval);
+                            demoPlaceholder.style.display = 'none';
+                            demoResult.src = randomExample.image;
+                            demoResult.style.display = 'block';
+                            demoTimer.style.display = 'block';
+                            demoButton.disabled = false;
+                            demoButton.innerHTML = '<i class="fas fa-magic"></i> Generate AI Content';
+                        }, randomExample.time * 1000);
+                    }
+                }, 30);
+            });
+            
+            // Animate elements when they come into view
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.slide-up, .fade-in');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state for animations
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(50px)';
+                el.style.transition = 'all 0.8s ease-out';
+            });
+            
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 1s ease-in';
+            });
+            
+            // Trigger animations on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+        });
+    </script>
+
+    <script type="text/javascript" src="https://warriorplus.com/o2/disclaimer/z5x264" defer></script>
+</body>
+</html>
